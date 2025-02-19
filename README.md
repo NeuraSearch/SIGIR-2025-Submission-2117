@@ -13,8 +13,6 @@ This repository contains scripts for evaluating search queries using BM25 rankin
 2. Then, use these metrics to train the QPP machine learning models
 
 ## Step 1: BM25 QPP Evaluation
-
-```bash
 python BM25_QPP_Labels.py --input /path/to/your/dataset.pkl --k 10
 
 ## Arguments:
