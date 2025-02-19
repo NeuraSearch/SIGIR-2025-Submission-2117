@@ -1,38 +1,33 @@
 # SIGIR-2025-Submission-2117
 SIGIR-2025-Submission-2117
 
+SIGIR-2025-Submission-2117 🔍
+Show Image
+Show Image
 Query Performance Prediction Pipeline
-This repository contains scripts for evaluating search queries using BM25 ranking and training Query Performance Prediction (QPP) models.
-Pipeline Overview
+This repository contains scripts for evaluating search queries using BM25 ranking and training Query Performance Prediction (QPP) models. The pipeline integrates both traditional text-based features and EEG signals for advanced query performance prediction.
 
-First, run the BM25 QPP evaluation script to generate retrieval metrics
-Then, use these metrics to train the QPP machine learning models
+📋 Pipeline Overview
 
+BM25 QPP Evaluation: Generate retrieval metrics for queries
+QPP Model Training: Train models using the generated metrics
+
+
+🚀 Getting Started
+Requirements
+bashCopypip install -r requirements.txt
 Step 1: BM25 QPP Evaluation
-Run the BM25 evaluation script to generate retrieval metrics for your queries:
+Generate retrieval metrics for your queries using the BM25 evaluation script:
 bashCopypython BM25_QPP_Labels.py --input /path/to/your/dataset.pkl --k 10
-Arguments:
-
---input, -i: Path to the input dataset pickle file (required)
---k, -k: Number of top documents to consider (default: 10)
---debug, -d: Enable debug output (optional)
---output, -o: Custom output path for results (optional, default: input_path_evaluation_k{k}.pkl)
-
+Arguments
+ArgumentDescriptionRequired--input, -iPath to input dataset pickle file✅--k, -kNumber of top documents to consider (default: 10)❌--debug, -dEnable debug output❌--output, -oCustom output path for results❌
 Step 2: Training QPP Models
-After generating the retrieval metrics, train the QPP models using:
+Train the QPP models using the generated retrieval metrics:
 bashCopypython run_machine_learning_models.py --dataset /path/to/evaluation_results.pkl --results-dir /path/to/output_directory
-Arguments:
+Arguments
+ArgumentDescriptionRequiredDefault--dataset, -dPath to evaluation dataset file✅---results-dir, -rDirectory for saving results✅---metricMetric to use ('ndcg@10' or 'mrr@10')❌ndcg@10--eegInclude EEG features❌False--textInclude text features❌False--modelModel type (RandomForestRegressor/LGBMRegressor)❌RandomForestRegressor--loaderData loader to use❌load_eeg_averaged_across_subjects--evaluatorEvaluator to use❌group_kfold_evaluator
 
---dataset, -d: Path to the evaluation dataset file (required)
---results-dir, -r: Directory for saving results (required)
---metric: Metric to use for training ('ndcg@10' or 'mrr@10', default: 'ndcg@10')
---eeg: Include EEG features
---text: Include text features
---model: Model to use ('RandomForestRegressor' or 'LGBMRegressor', default: 'RandomForestRegressor')
---loader: Data loader to use (default: 'load_eeg_averaged_across_subjects')
---evaluator: Evaluator to use (default: 'group_kfold_evaluator')
-
-Example Usage
+📝 Example Usage
 bashCopy# Step 1: Generate retrieval metrics
 python BM25_QPP_Labels.py --input data/my_dataset.pkl --k 10
 
@@ -43,3 +38,14 @@ python run_machine_learning_models.py \
     --eeg \
     --text \
     --model LGBMRegressor
+📊 Output
+
+BM25 evaluation results will be saved as a pickle file with the suffix _evaluation_k{k}.pkl
+ML model results will be saved in the specified results directory as JSON files
+
+
+📬 Contact
+For questions about the code, please open an issue in this repository.
+
+📄 License
+This project is licensed under the MIT License - see the LICENSE file for details.
