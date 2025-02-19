@@ -16,23 +16,23 @@ This repository contains scripts for evaluating search queries using BM25 rankin
 python BM25_QPP_Labels.py --input /path/to/your/dataset.pkl --k 10
 
 ## Arguments:
---input, -i: Path to the input dataset pickle file (required) \
---k, -k: Number of top documents to consider (default: 10) \
---debug, -d: Enable debug output (optional) \
---output, -o: Custom output path for results (optional, default: input_path_evaluation_k{k}.pkl) \
+--input, -i:     Path to the input dataset pickle file (required) \
+--k, -k:         Number of top documents to consider (default: 10) \
+--debug, -d:     Enable debug output (optional) \
+--output, -o:    Custom output path for results (optional, default: input_path_evaluation_k{k}.pkl) 
 
 ## Step 2: Training QPP Models
-python run_machine_learning_models.py --dataset /path/to/evaluation_results.pkl --results-dir /path/to/output_directory \
+python run_machine_learning_models.py --dataset /path/to/evaluation_results.pkl --results-dir /path/to/output_directory 
 
 ## Arguments:
---dataset, -d: Path to the evaluation dataset file (required) \
+--dataset, -d:     Path to the evaluation dataset file (required) \
 --results-dir, -r: Directory for saving results (required) \
---metric: Metric to use ('ndcg@10' or 'mrr@10', default: 'ndcg@10') \
---eeg: Include EEG features \
---text: Include text features \
---model: Model to use ('RandomForestRegressor' or 'LGBMRegressor', default: 'RandomForestRegressor') \
---loader: Data loader to use (default: 'load_eeg_averaged_across_subjects') \
---evaluator: Evaluator to use (default: 'group_kfold_evaluator') \
+--metric:          Metric to use ('ndcg@10' or 'mrr@10', default: 'ndcg@10') \
+--eeg:             Include EEG features \
+--text:            Include text features \
+--model:           Model to use ('RandomForestRegressor' or 'LGBMRegressor', default: 'RandomForestRegressor') \
+--loader:          Data loader to use (default: 'load_eeg_averaged_across_subjects') \
+--evaluator:       Evaluator to use (default: 'group_kfold_evaluator') 
 
 ## Example Usage
 # Step 1: Generate retrieval metrics
