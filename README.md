@@ -1,34 +1,43 @@
-# SIGIR-2025-Submission-2117
-SIGIR-2025-Submission-2117
+# SIGIR-2025-Submission-2117 🔍
 
-SIGIR-2025-Submission-2117 🔍
-Show Image
-Show Image
-Query Performance Prediction Pipeline
-This repository contains scripts for evaluating search queries using BM25 ranking and training Query Performance Prediction (QPP) models. The pipeline integrates both traditional text-based features and EEG signals for advanced query performance prediction.
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-📋 Pipeline Overview
+## Query Performance Prediction Pipeline
 
-BM25 QPP Evaluation: Generate retrieval metrics for queries
-QPP Model Training: Train models using the generated metrics
+This repository contains scripts for evaluating search queries using BM25 ranking and training Query Performance Prediction (QPP) models.
 
+## Pipeline Overview
 
-🚀 Getting Started
-Requirements
-bashCopypip install -r requirements.txt
-Step 1: BM25 QPP Evaluation
-Generate retrieval metrics for your queries using the BM25 evaluation script:
-bashCopypython BM25_QPP_Labels.py --input /path/to/your/dataset.pkl --k 10
-Arguments
-ArgumentDescriptionRequired--input, -iPath to input dataset pickle file✅--k, -kNumber of top documents to consider (default: 10)❌--debug, -dEnable debug output❌--output, -oCustom output path for results❌
-Step 2: Training QPP Models
-Train the QPP models using the generated retrieval metrics:
-bashCopypython run_machine_learning_models.py --dataset /path/to/evaluation_results.pkl --results-dir /path/to/output_directory
-Arguments
-ArgumentDescriptionRequiredDefault--dataset, -dPath to evaluation dataset file✅---results-dir, -rDirectory for saving results✅---metricMetric to use ('ndcg@10' or 'mrr@10')❌ndcg@10--eegInclude EEG features❌False--textInclude text features❌False--modelModel type (RandomForestRegressor/LGBMRegressor)❌RandomForestRegressor--loaderData loader to use❌load_eeg_averaged_across_subjects--evaluatorEvaluator to use❌group_kfold_evaluator
+1. First, run the BM25 QPP evaluation script to generate retrieval metrics
+2. Then, use these metrics to train the QPP machine learning models
 
-📝 Example Usage
-bashCopy# Step 1: Generate retrieval metrics
+## Step 1: BM25 QPP Evaluation
+
+```bash
+python BM25_QPP_Labels.py --input /path/to/your/dataset.pkl --k 10
+
+## Arguments:
+--input, -i: Path to the input dataset pickle file (required)
+--k, -k: Number of top documents to consider (default: 10)
+--debug, -d: Enable debug output (optional)
+--output, -o: Custom output path for results (optional, default: input_path_evaluation_k{k}.pkl)
+
+## Step 2: Training QPP Models
+python run_machine_learning_models.py --dataset /path/to/evaluation_results.pkl --results-dir /path/to/output_directory
+
+## Arguments:
+--dataset, -d: Path to the evaluation dataset file (required)
+--results-dir, -r: Directory for saving results (required)
+--metric: Metric to use ('ndcg@10' or 'mrr@10', default: 'ndcg@10')
+--eeg: Include EEG features
+--text: Include text features
+--model: Model to use ('RandomForestRegressor' or 'LGBMRegressor', default: 'RandomForestRegressor')
+--loader: Data loader to use (default: 'load_eeg_averaged_across_subjects')
+--evaluator: Evaluator to use (default: 'group_kfold_evaluator')
+
+## Example Usage
+# Step 1: Generate retrieval metrics
 python BM25_QPP_Labels.py --input data/my_dataset.pkl --k 10
 
 # Step 2: Train QPP model with both EEG and text features
@@ -38,14 +47,4 @@ python run_machine_learning_models.py \
     --eeg \
     --text \
     --model LGBMRegressor
-📊 Output
 
-BM25 evaluation results will be saved as a pickle file with the suffix _evaluation_k{k}.pkl
-ML model results will be saved in the specified results directory as JSON files
-
-
-📬 Contact
-For questions about the code, please open an issue in this repository.
-
-📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
